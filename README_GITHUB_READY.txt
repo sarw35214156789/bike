@@ -49,3 +49,32 @@ The popup includes:
 - price and old price
 - stock count
 - add to cart button
+
+## WhatsApp Ordering Added
+
+This version includes:
+- Floating WhatsApp order button
+- Order Cart on WhatsApp button
+- Order This Item on WhatsApp button inside product inspect popup
+- Clean customer footer without visible admin link
+- Admin credentials removed from the visible login page
+
+Before publishing, edit this file:
+
+assets/js/store.js
+
+Find:
+
+const WHATSAPP_PHONE = "94770000000";
+
+Replace it with your real WhatsApp number in international format without + sign.
+
+Example:
+const WHATSAPP_PHONE = "94771234567";
+
+Admin page is still available directly:
+admin.html
+
+Admin login:
+Username: bikehubadmin
+Password: BikeHub@2026

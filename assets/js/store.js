@@ -2,6 +2,77 @@
 const defaultProducts = [{"id": 1, "name": "Racing Helmet Pro", "category": "Safety", "price": 18500, "oldPrice": 22000, "stock": 12, "rating": 4.8, "image": "assets/images/helmet.svg"}, {"id": 2, "name": "LED Headlight Kit", "category": "Lighting", "price": 7600, "oldPrice": 9200, "stock": 8, "rating": 4.6, "image": "assets/images/light.svg"}, {"id": 3, "name": "Digital Speed Meter", "category": "Electronics", "price": 12500, "oldPrice": 14500, "stock": 5, "rating": 4.7, "image": "assets/images/meter.svg"}, {"id": 4, "name": "Performance Tool Set", "category": "Maintenance", "price": 9900, "oldPrice": 11800, "stock": 20, "rating": 4.5, "image": "assets/images/tools.svg"}, {"id": 5, "name": "Riding Gloves", "category": "Safety", "price": 4200, "oldPrice": 5100, "stock": 15, "rating": 4.4, "image": "assets/images/gloves.svg"}, {"id": 6, "name": "Chain Cleaning Brush", "category": "Maintenance", "price": 1850, "oldPrice": 2400, "stock": 30, "rating": 4.3, "image": "assets/images/chain.svg"}];
 let products = JSON.parse(localStorage.getItem("bikeHubProducts") || JSON.stringify(defaultProducts));
 let cart = JSON.parse(localStorage.getItem("bikeHubCart") || "{}");
+
+// ===== WhatsApp Order Configuration =====
+// Replace this number with your real shop WhatsApp number before publishing.
+// Format: country code + number, without + sign. Example: 94771234567
+const WHATSAPP_PHONE = "94770000000";
+
+function getWhatsAppUrl(message) {
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
+function buildCartWhatsAppMessage() {
+  const entries = Object.entries(cart);
+
+  if (!entries.length) {
+    return "Hello Bike Hub, I want to ask about your bike accessories.";
+  }
+
+  let lines = [];
+  lines.push("Hello Bike Hub, I want to place an order.");
+  lines.push("");
+  lines.push("Order Items:");
+
+  let totalAmount = 0;
+
+  entries.forEach(([id, qty]) => {
+    const product = products.find(item => item.id === Number(id));
+    if (!product) return;
+
+    const lineTotal = product.price * Number(qty);
+    totalAmount += lineTotal;
+
+    lines.push(`- ${product.name} x ${qty} = ${lkr(lineTotal)}`);
+  });
+
+  lines.push("");
+  lines.push(`Total: ${lkr(totalAmount)}`);
+  lines.push("");
+  lines.push("Customer Name:");
+  lines.push("Phone:");
+  lines.push("Delivery Address:");
+  lines.push("");
+  lines.push("Please confirm availability and delivery details.");
+
+  return lines.join("\n");
+}
+
+function openWhatsAppCartOrder() {
+  window.open(getWhatsAppUrl(buildCartWhatsAppMessage()), "_blank");
+}
+
+function openWhatsAppProductOrder(product) {
+  if (!product) return;
+
+  const message = [
+    "Hello Bike Hub, I want to order this item.",
+    "",
+    `Product: ${product.name}`,
+    `Category: ${product.category}`,
+    `Price: ${lkr(product.price)}`,
+    `Stock: ${product.stock}`,
+    "",
+    "Customer Name:",
+    "Phone:",
+    "Delivery Address:",
+    "",
+    "Please confirm availability and delivery details."
+  ].join("\n");
+
+  window.open(getWhatsAppUrl(message), "_blank");
+}
+
 let activeCat = "All";
 const grid=document.getElementById("grid"), pills=document.getElementById("pills"), search=document.getElementById("search"), sort=document.getElementById("sort"), drawer=document.getElementById("drawer"), overlay=document.getElementById("overlay"), items=document.getElementById("items"), total=document.getElementById("total"), cartCount=document.getElementById("cartCount"), checkoutModal=document.getElementById("checkoutModal");
 function saveP(){localStorage.setItem("bikeHubProducts", JSON.stringify(products));}
@@ -138,4 +209,27 @@ document.getElementById("closeCheckout").onclick=()=>{checkoutModal.classList.re
 document.querySelectorAll('input[name="payment"]').forEach(r=>r.onchange=()=>{document.querySelectorAll(".pay").forEach(p=>p.classList.remove("active"));r.closest(".pay").classList.add("active");document.getElementById("cardbox").classList.toggle("open",r.value==="CARD_DEMO")}); 
 document.getElementById("cardNumber").oninput=e=>{let v=e.target.value.replace(/\D/g,"").slice(0,16);e.target.value=v.replace(/(.{4})/g,"$1 ").trim()};
 document.getElementById("checkoutForm").onsubmit=e=>{e.preventDefault();let pay=document.querySelector('input[name="payment"]:checked').value;let last4="";if(pay==="CARD_DEMO"){let cn=document.getElementById("cardNumber").value.replace(/\D/g,"");if(cn.length<16)return document.getElementById("msg").textContent="Enter valid demo card details.";last4=cn.slice(-4)}let order={id:Date.now(),date:new Date().toISOString(),customerName:customerName.value,phone:phone.value,email:email.value,address:address.value,note:note.value,paymentMethod:pay,paymentStatus:pay==="CARD_DEMO"?"Paid Demo":"Pending COD",cardLast4:last4,status:"New",total:cartTotal(),items:Object.entries(cart).map(([id,q])=>{let p=products.find(x=>x.id===Number(id));return{id:p.id,name:p.name,qty:Number(q),price:p.price,lineTotal:p.price*q,image:p.image}})};let orders=JSON.parse(localStorage.getItem("bikeHubOrders")||"[]");orders.unshift(order);localStorage.setItem("bikeHubOrders",JSON.stringify(orders));products=products.map(p=>{let i=order.items.find(x=>x.id===p.id);return i?{...p,stock:Math.max(0,p.stock-i.qty)}:p});saveP();cart={};saveC();alert("Order placed. ID #"+order.id);location.reload();};
+
+const whatsappFloat = document.getElementById("whatsappFloat");
+const whatsappCartBtn = document.getElementById("whatsappCartBtn");
+
+if (whatsappFloat) {
+  whatsappFloat.addEventListener("click", (event) => {
+    event.preventDefault();
+    openWhatsAppCartOrder();
+  });
+}
+
+if (whatsappCartBtn) {
+  whatsappCartBtn.addEventListener("click", openWhatsAppCartOrder);
+}
+
+const inspectWhatsAppBtn = document.getElementById("inspectWhatsAppBtn");
+if (inspectWhatsAppBtn) {
+  inspectWhatsAppBtn.addEventListener("click", () => {
+    if (!currentInspectProduct) return;
+    openWhatsAppProductOrder(currentInspectProduct);
+  });
+}
+
 search.oninput=render;sort.onchange=render;cats();render();

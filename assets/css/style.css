@@ -140,3 +140,87 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opa
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ===== WhatsApp Ordering + Publish Clean UI ===== */
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+  border-radius: 999px;
+  padding: 14px 18px;
+  box-shadow: 0 20px 55px rgba(37,211,102,.35);
+  border: 1px solid rgba(255,255,255,.24);
+  font-weight: 950;
+  transition: .22s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 70px rgba(37,211,102,.45);
+}
+
+.wa-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,.16);
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+.whatsapp-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.whatsapp-btn:hover {
+  filter: brightness(1.08);
+}
+
+.card .pic::after {
+  content: "Click to inspect";
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  background: rgba(5,5,5,.72);
+  border: 1px solid rgba(250,204,21,.35);
+  color: #fef08a;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: .2s ease;
+}
+
+.card:hover .pic::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(max-width:700px) {
+  .whatsapp-float {
+    right: 14px;
+    bottom: 14px;
+    padding: 12px 14px;
+  }
+
+  .wa-text {
+    display: none;
+  }
+
+  .wa-icon {
+    width: 42px;
+    height: 42px;
+  }
+}

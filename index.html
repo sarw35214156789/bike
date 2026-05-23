@@ -14,7 +14,7 @@
 </div></header>
 <main>
 <section class="hero" id="home"><div class="container hero-grid">
-  <div><p class="kicker">GitHub Pages Ready</p><h1>Ride smarter<br>with <span>Bike</span><br><span>Hub</span></h1><p>Modern Bike Hub website with product area, cart, checkout demo, and admin panel that works on GitHub Pages using browser storage.</p><div class="hero-actions"><a href="#products" class="btn primary">Explore Products →</a><a href="#location" class="btn ghost">Find Store →</a></div></div>
+  <div><p class="kicker">Premium Rider Store</p><h1>Ride smarter<br>with <span>Bike</span><br><span>Hub</span></h1><p>Modern Bike Hub website with product area, cart, checkout and fast WhatsApp ordering.</p><div class="hero-actions"><a href="#products" class="btn primary">Explore Products →</a><a href="#location" class="btn ghost">Find Store →</a></div></div>
   <div class="logo-stage"><div class="hero-logo"><img src="assets/images/logo.svg"><h2>Bike Hub</h2><p>Premium Accessories</p></div></div>
 </div></section>
 <section class="section" id="products"><div class="container">
@@ -24,8 +24,9 @@
 <section class="section" id="location"><div class="container contact"><div><p class="kicker">Location</p><h2>Visit Bike Hub</h2><p style="margin:12px 0 20px">Add your real shop address and Google Maps link here.</p><a class="btn primary" href="https://share.google/Y3x25ZjLcrM0lJzkl" target="_blank">Open Location</a></div><img class="contact-logo" src="assets/images/logo.svg"></div></section>
 <section class="section" id="contact"><div class="container contact"><div><p class="kicker">Contact</p><h2>Build your dream ride today</h2><p style="margin-top:12px">Bike Hub helps riders buy accessories and discover modern bike upgrades.</p></div><div><img class="contact-logo" src="assets/images/logo.svg"><p><b>Phone:</b> +94 77 000 0000</p><p><b>Email:</b> info@bikehub.lk</p><p><b>Location:</b> Colombo, Sri Lanka</p></div></div></section>
 </main>
-<aside class="drawer" id="drawer"><div class="drawer-head"><h2>Bike Hub Cart</h2><button id="closeCart">×</button></div><div class="items" id="items"></div><div class="drawer-foot"><div class="total"><span>Total</span><strong id="total">LKR 0</strong></div><button class="btn primary full" id="checkoutBtn">Purchase / Place Order</button></div></aside>
-<div class="modal" id="checkoutModal"><form class="modal-card" id="checkoutForm"><div class="modal-head"><div><h2>Place Your Order</h2><p style="color:var(--muted)">Demo checkout for GitHub Pages.</p></div><button type="button" class="modal-close" id="closeCheckout">×</button></div>
+<aside class="drawer" id="drawer"><div class="drawer-head"><h2>Bike Hub Cart</h2><button id="closeCart">×</button></div><div class="items" id="items"></div><div class="drawer-foot"><div class="total"><span>Total</span><strong id="total">LKR 0</strong></div><button class="btn primary full" id="checkoutBtn">Purchase / Place Order</button>
+<button class="btn whatsapp-btn full" id="whatsappCartBtn" type="button">Order Cart on WhatsApp</button></div></aside>
+<div class="modal" id="checkoutModal"><form class="modal-card" id="checkoutForm"><div class="modal-head"><div><h2>Place Your Order</h2><p style="color:var(--muted)">Enter your details to place your Bike Hub order.</p></div><button type="button" class="modal-close" id="closeCheckout">×</button></div>
 <div class="form-grid"><label>Customer Name<input id="customerName" required></label><label>Phone<input id="phone" required></label><label>Email<input id="email"></label><label>Delivery Address<textarea id="address" required></textarea></label><label class="full-field">Order Note<textarea id="note"></textarea></label></div>
 <div class="payments"><label class="pay active"><input type="radio" name="payment" value="COD" checked><b>💵 Cash on Delivery</b></label><label class="pay"><input type="radio" name="payment" value="CARD_DEMO"><b>💳 Card Demo</b></label></div>
 <div class="cardbox" id="cardbox"><p style="color:#fef08a;margin-bottom:12px">Demo only. Do not use real card details.</p><div class="form-grid"><label>Card Number<input id="cardNumber" maxlength="19" placeholder="4111 1111 1111 1111"></label><label>CVV<input id="cvv" maxlength="4"></label></div></div>
@@ -66,12 +67,19 @@
           Premium Bike Hub product with modern style, rider safety, and high performance quality.
         </p>
         <button type="button" class="btn primary full" id="inspectAddBtn">Add to Cart</button>
+<button type="button" class="btn whatsapp-btn full" id="inspectWhatsAppBtn">Order This Item on WhatsApp</button>
       </div>
     </div>
   </div>
 </div>
 
+
+<a class="whatsapp-float" id="whatsappFloat" href="#" target="_blank" aria-label="Order on WhatsApp">
+  <span class="wa-icon">☎</span>
+  <span class="wa-text">Order on WhatsApp</span>
+</a>
+
 <div class="overlay" id="overlay"></div>
-<footer class="footer"><div class="container"><p>© 2026 Bike Hub</p><p><a href="admin.html">Staff Area</a></p></div></footer>
+<footer class="footer"><div class="container"><p>© 2026 Bike Hub</p><p>Premium bike accessories store.</p></div></footer>
 <script src="assets/js/store.js"></script>
 </body></html>

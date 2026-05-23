@@ -1,0 +1,32 @@
+Bike Hub Publish Checklist
+
+1. Upload these files to GitHub repository root:
+   index.html
+   admin.html
+   assets
+   README_GITHUB_READY.txt
+
+2. Do not upload the full folder as a folder.
+   index.html must be directly in the repository root.
+
+3. Change WhatsApp number before publishing:
+   Open assets/js/store.js
+   Find WHATSAPP_PHONE
+   Replace 94770000000 with your real WhatsApp number.
+
+4. GitHub Pages:
+   Settings > Pages > Deploy from branch > main > /root
+
+5. Customer website:
+   https://yourusername.github.io/bikehub/
+
+6. Admin panel:
+   https://yourusername.github.io/bikehub/admin.html
+
+7. Admin login:
+   Username: bikehubadmin
+   Password: BikeHub@2026
+
+Important:
+GitHub version saves admin products/orders in browser localStorage only.
+For real shared orders from all customers, use PHP + MySQL cPanel hosting.
